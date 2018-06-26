@@ -16,14 +16,16 @@ namespace VK_Analysis_ConsoleAnalysis
     {
         VkApi vkApi = new VkApi();
 
-        public void Authorize()
+        /// <summary>
+        /// Метод авторизирующий пользователя
+        /// </summary>
+        /// <param name="login"> Логин (e-mail) пользователя </param>
+        /// <param name="password"> Пароль пользователя </param>
+        public void Authorize(string login, string password)
         {
             try
             {
-                Console.WriteLine("Введите логин");
-                string login = Console.ReadLine();
-                Console.WriteLine("Введите пароль");
-                string password = Console.ReadLine();
+                
                 vkApi.Authorize(new ApiAuthParams
                 {
                     ApplicationId = 6612352,
@@ -40,6 +42,11 @@ namespace VK_Analysis_ConsoleAnalysis
             Console.WriteLine("Вы успешно авторизировались!");
         }
 
+        /// <summary>
+        /// Метод получающий список всех друзей по заданому Id пользователя
+        /// </summary>
+        /// <param name="userId"> Id пользователя </param>
+        ///  <returns> Возвращает список друзей </returns>
         public List<User> GetAllFriends(long userId)
         {
             try
@@ -60,6 +67,12 @@ namespace VK_Analysis_ConsoleAnalysis
             }
         }
 
+        /// <summary>
+        /// Метод получающий список всех друзей по заданому Id пользователя в указанном городе
+        /// </summary>
+        /// <param name="userId"> Id пользователя </param>
+        /// <param name="city"> Город </param>
+        ///  <returns> Возвращает список друзей из определенного города </returns>
         public List<User> GetFriendsFromCity(long userId, string city)
         {
             List<User> CityUsers = new List<User>();

@@ -13,14 +13,26 @@ namespace VK_Analysis_Console
         static void Main(string[] args)
         {
             AccountService accountService = new AccountService();
+            
 
-            accountService.Authorize();
+            Console.WriteLine("Введите логин");
+            string login = Console.ReadLine();
+            Console.WriteLine("Введите пароль");
+            string password = Console.ReadLine();
+            accountService.Authorize(login,password);
+
+
             Console.WriteLine("Введите ID человека: ");
             long userId = Int64.Parse(Console.ReadLine());
-            //accountService.GetAllFriends(userId);
             Console.WriteLine("Введите название города: ");
             string city = Console.ReadLine();
+
+
+
             List<User> users = accountService.GetFriendsFromCity(userId,city);
+
+
+
             accountService.PrintUsers(users);
 
             Console.ReadLine();
