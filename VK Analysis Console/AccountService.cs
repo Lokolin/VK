@@ -21,7 +21,7 @@ namespace VK_Analysis_ConsoleAnalysis
         /// </summary>
         /// <param name="login"> Логин (e-mail) пользователя </param>
         /// <param name="password"> Пароль пользователя </param>
-        public void Authorize(string login, string password)
+        public VkApi Authorize(string login, string password)
         {
             try
             {
@@ -33,11 +33,13 @@ namespace VK_Analysis_ConsoleAnalysis
                     Password = password,
                     Settings = Settings.All
                 });
+                return vkApi;
 
             }
             catch (VkApiException)
             {
                 Console.WriteLine("Неправильный логин или пароль");
+                return null;
             }
             Console.WriteLine("Вы успешно авторизировались!");
         }
