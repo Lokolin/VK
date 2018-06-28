@@ -23,21 +23,23 @@ namespace VK_Analysis_Console
 
             
 
-            Console.WriteLine("Введите ID человека: ");
-            long userId = Int64.Parse(Console.ReadLine());
-            Console.WriteLine("Введите название города: ");
-            string city = Console.ReadLine();
+            //Console.WriteLine("Введите ID человека: ");
+            //long userId = Int64.Parse(Console.ReadLine());
+            //Console.WriteLine("Введите название города: ");
+            //string city = Console.ReadLine();
 
 
-            List<User> users = accountService.GetFriendsFromCity(userId,city); //получние всех друзей по заданному Id и городу
-            accountService.PrintUsers(users); //вывод списка друзей по заданному Id и городу
+            //List<User> users = accountService.GetFriendsFromCity(userId,city); //получние всех друзей по заданному Id и городу
+            //accountService.PrintUsers(users); //вывод списка друзей по заданному Id и городу
 
 
             GroupService groupService = new GroupService(vkApi); //создание экземпляра GroupService
             Console.WriteLine("Введите Id группы: ");
             string groupId = Console.ReadLine();
 
-            groupService.GetGroupMembersInfo(groupId); //получние всех подписчиков по заданному Id группы
+            List<User> Subscribers = groupService.GetGroupMembersInfo(groupId); //получние всех подписчиков по заданному Id группы
+            groupService.SubscribersInfo(Subscribers);
+
 
             Console.ReadLine();
         }

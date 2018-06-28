@@ -5,6 +5,7 @@ using VkNet;
 using VkNet.Enums.Filters;
 using VkNet.Model;
 using VkNet.Model.RequestParams;
+using System.Linq;
 
 namespace VK_Analysis_ConsoleAnalysisAnalysis
 {
@@ -16,7 +17,12 @@ namespace VK_Analysis_ConsoleAnalysisAnalysis
             vkApi = _vkApi;
         }
 
-        public void GetGroupMembersInfo(string groupId)
+        /// <summary>
+        /// Метод получающий список всех подписчиков по заданому Id группы 
+        /// </summary>
+        /// <param name="userId"> Id группы </param>
+        ///  <returns> Возвращает список всех подписчиков по заданому Id группы  </returns>
+        public List<User> GetGroupMembersInfo(string groupId)
         {
             List<User> allUsers = new List<User>();
             int i = 0;
@@ -35,13 +41,25 @@ namespace VK_Analysis_ConsoleAnalysisAnalysis
                 });
                 foreach (var member in members)
                 {
-                    Console.WriteLine(member.FirstName + " " + member.LastName + " " + member.City?.Title);
                     allUsers.Add(member);
                 }
                 i += 1000;
             }
 
-            Console.WriteLine("Число подписчиков в группе" + allUsers.Count);
+            return allUsers;
+        }
+
+        /// <summary>
+        /// Метод получающий список городов проживания подписчиков с их количеством 
+        /// </summary>
+        /// <param name="subscribers"> список подписчиков </param>
+        public void SubscribersInfo(List<User> subscribers)
+        {
+            var SubscribersInCity = subscribers.GroupBy(p => p.City?.Title)
+                .Select(g => new { Name = g.Key, Count = g.Count() });
+
+            foreach (var SubscriberInCity in SubscribersInCity)
+                Console.WriteLine("{0} : {1}", SubscriberInCity?.Name, SubscriberInCity.Count);
         }
     }
 }
